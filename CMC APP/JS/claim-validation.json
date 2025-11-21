@@ -1,0 +1,14 @@
+document.addEventListener("DOMContentLoaded", function() {
+    const hours = document.getElementById("hours");
+    const rate = document.getElementById("rate");
+    const total = document.getElementById("total");
+
+    function calculateTotal() {
+        const h = parseFloat(hours.value) || 0;
+        const r = parseFloat(rate.value) || 0;
+        total.value = (h * r).toFixed(2);
+    }
+
+    hours.addEventListener("input", calculateTotal);
+    rate.addEventListener("input", calculateTotal);
+});

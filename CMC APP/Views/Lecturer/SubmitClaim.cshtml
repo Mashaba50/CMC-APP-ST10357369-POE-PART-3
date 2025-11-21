@@ -1,0 +1,97 @@
+﻿@model CMCS.Models.Claim
+
+@{
+    ViewData["Title"] = "Submit Monthly Claim";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <style>
+        .btn-primary {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+            transition: 0.3s;
+        }
+
+            .btn-primary:hover {
+                background-color: #0b5ed7;
+                border-color: #0b5ed7;
+            }
+
+        .navbar .btn {
+            padding: 0.35rem 0.75rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
+        <div class="container">
+            <a class="navbar-brand fw-bold" asp-controller="Home" asp-action="Index">ContractMonthlyClaimSystem</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item me-2">
+                        <a class="nav-link btn btn-outline-primary btn-sm @(ViewContext.RouteData.Values["action"].ToString() == "Index" ? "btn-primary text-white" : "")"
+                           asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item me-2">
+                        <a class="nav-link btn btn-outline-primary btn-sm @(ViewContext.RouteData.Values["action"].ToString() == "SubmitClaim" ? "btn-primary text-white" : "")"
+                           asp-controller="Lecturer" asp-action="SubmitClaim">Submit Claim</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-danger btn-sm" asp-controller="Home" asp-action="Logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Claim Form Card -->
+    <div class="d-flex justify-content-center align-items-center flex-column" style="min-height: 70vh;">
+        <div class="card p-5 shadow-lg rounded-4" style="width: 500px;">
+            <h3 class="text-center mb-4">Submit Monthly Claim</h3>
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+            }
+
+            <form asp-action="SubmitClaim" method="post" enctype="multipart/form-data">
+                <input asp-for="HoursWorked" class="form-control mb-3" placeholder="Hours Worked" id="hours" />
+                <input asp-for="HourlyRate" class="form-control mb-3" placeholder="Hourly Rate" id="rate" />
+                <input asp-for="TotalAmount" class="form-control mb-3" placeholder="Total Amount" id="total" readonly />
+                <input type="file" name="SupportingDocument" class="form-control mb-3" />
+                <button type="submit" class="btn btn-primary w-100 fw-bold">Submit Claim</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle (right before closing body!) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const hours = document.getElementById('hours');
+        const rate = document.getElementById('rate');
+        const total = document.getElementById('total');
+
+        function calc() {
+            total.value = (parseFloat(hours.value || 0) * parseFloat(rate.value || 0)).toFixed(2);
+        }
+
+        hours.addEventListener('input', calc);
+        rate.addEventListener('input', calc);
+    </script>
+
+</body>
+</html>
