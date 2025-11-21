@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace CMCS.Controllers
 {
+    //creating class
     public class LecturerController : Controller
     {
         private readonly ApplicationDbContext _context;

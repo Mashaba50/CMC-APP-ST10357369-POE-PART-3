@@ -3,6 +3,7 @@ using System;
 
 namespace CMCS.Models
 {
+    //creating class
     public class Claim
     {
         public int Id { get; set; }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace CMCS.Controllers
 {
+    // creating class
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
